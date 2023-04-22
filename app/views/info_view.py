@@ -67,7 +67,7 @@ class InfoView(BaseView):
             else:
                 caption = ""
 
-            caption_html = Markup.escape(caption).__str__().replace("\n", "<br>")
+            caption_html = markupsafe.escape(caption).__str__().replace("\n", "<br>")
             return_val.update(
                 {
                     "found": True,
