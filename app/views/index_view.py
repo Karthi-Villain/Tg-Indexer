@@ -1,6 +1,7 @@
 import logging
 from typing import List
 from urllib.parse import quote
+import os
 
 import aiohttp_jinja2
 from aiohttp import web
@@ -57,7 +58,7 @@ class IndexView(BaseView):
             entry = None
             if m.file and not isinstance(m.media, types.MessageMediaWebPage):
                 filename = get_file_name(m, quote_name=False)
-                insight = m.text[:60] if m.text else filename
+                insight = m.text[:os.getenv("TextMaxLen",100)] if m.text else filename
                 entry = dict(
                     file_id=m.id,
                     media=True,
