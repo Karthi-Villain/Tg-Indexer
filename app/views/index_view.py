@@ -1,4 +1,4 @@
-import logging
+import logging ,os
 from typing import List
 from urllib.parse import quote
 
@@ -57,7 +57,7 @@ class IndexView(BaseView):
             entry = None
             if m.file and not isinstance(m.media, types.MessageMediaWebPage):
                 filename = get_file_name(m, quote_name=False)
-                insight = m.text[:60] if m.text else filename
+                insight = m.text[::os.getenv("TextMaxLen",100)] if m.text else filename
                 entry = dict(
                     file_id=m.id,
                     media=True,
